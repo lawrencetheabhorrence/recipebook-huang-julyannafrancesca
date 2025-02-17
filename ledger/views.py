@@ -29,4 +29,12 @@ ctx = {
     ]
 }
 
+
 # Create your views here.
+def index(request):
+    return render(request, "ledger/recipe_list.html", ctx)
+
+
+def recipe_detail(request, recipe_id):
+    recipe_ctx = ctx["recipes"][recipe_id - 1]
+    return render(request, "ledger/recipe_detail.html", recipe_ctx)
