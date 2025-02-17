@@ -17,7 +17,10 @@ Including another URLconf
 
 from django.contrib import admin
 from django.urls import path
+import ledger
 
 urlpatterns = [
     path("admin/", admin.site.urls),
+    path("recipes/list", ledger.views.index),
+    path("recipe/<int:recipe_id>", ledger.views.recipe_detail),
 ]
