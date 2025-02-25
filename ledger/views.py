@@ -1,4 +1,6 @@
 from django.shortcuts import render
+from django.generic
+from .models import Recipe, RecipeIngredient
 
 ctx = {
     "recipes": [
@@ -32,9 +34,11 @@ ctx = {
 
 # Create your views here.
 def index(request):
-    return render(request, "ledger/recipe_list.html", ctx)
+    recipes = Recipe.objects.all()
+    return render(request, "ledger/recipe_list.html", {"recipes": recipes})
 
 
 def recipe_detail(request, recipe_id):
-    recipe_ctx = ctx["recipes"][recipe_id - 1]
-    return render(request, "ledger/recipe_detail.html", recipe_ctx)
+    recipe = Recipe.objects.get(pk=recipe_id)
+    ingredients = RecipeIngredient.objects.filter(recipe=recipe)
+    return render(request, "ledger/recipe_detail.html", {"name": recipe.name, "ingredients": ingredients})
