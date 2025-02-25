@@ -1,5 +1,4 @@
 from django.shortcuts import render
-from django.generic
 from .models import Recipe, RecipeIngredient
 
 ctx = {
@@ -41,4 +40,8 @@ def index(request):
 def recipe_detail(request, recipe_id):
     recipe = Recipe.objects.get(pk=recipe_id)
     ingredients = RecipeIngredient.objects.filter(recipe=recipe)
-    return render(request, "ledger/recipe_detail.html", {"name": recipe.name, "ingredients": ingredients})
+    return render(
+        request,
+        "ledger/recipe_detail.html",
+        {"name": recipe.name, "ingredients": ingredients},
+    )
