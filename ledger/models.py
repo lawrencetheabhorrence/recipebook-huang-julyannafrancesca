@@ -17,6 +17,6 @@ class Recipe(models.Model):
 
 
 class RecipeIngredient(models.Model):
-    quantity = models.PositiveIntegerField()
-    ingredient = models.ForeignKey(Ingredient, on_delete=models.SET_NULL)
+    quantity = models.CharField(max_length=250)
+    ingredient = models.ForeignKey(Ingredient, null=True, on_delete=models.SET_NULL)
     recipe = models.ForeignKey(Recipe, on_delete=models.CASCADE)
