@@ -17,5 +17,5 @@ def recipe_detail(request, recipe_id):
     return render(
         request,
         "ledger/recipe_detail.html",
-        {"name": recipe.name, "ingredients": ingredients},
+        {"name": recipe.name, "author": recipe.author, "ingredients": ingredients},
     )
