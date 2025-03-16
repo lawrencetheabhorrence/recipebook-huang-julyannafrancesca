@@ -18,6 +18,9 @@ class Ingredient(models.Model):
 
 class Recipe(models.Model):
     name = models.CharField(max_length=250, unique=True)
+    author = models.ForeignKey(Profile, on_delete=models.SET_NULL)
+    createdon = models.DateField(auto_now_add=True)
+    updatedon = models.DateField(auto_now=True)
 
     def __str__(self):
         return self.name
