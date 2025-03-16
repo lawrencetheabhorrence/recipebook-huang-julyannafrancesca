@@ -4,6 +4,10 @@
 {% block content %}
 <section>
 	<h3>Ingredients</h3>
+	<dl>
+		<dt>Author</dt>
+		<dd>{{ author }}</dd>
+	</dl>
 	<ul>
 		{% for ingredient in ingredients %}
 		<li>{{ ingredient.ingredient }}, <em>{{ ingredient.quantity }}</em></li>
