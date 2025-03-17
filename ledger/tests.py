@@ -1,7 +1,9 @@
-from django.test import TestCase, Client
 from django.contrib.auth.models import User
-from .models import Recipe, Ingredient, RecipeIngredient
+from django.test import Client, TestCase
+
 from user.models import Profile
+
+from .models import Ingredient, Recipe, RecipeIngredient
 
 # Create your tests here.
 
