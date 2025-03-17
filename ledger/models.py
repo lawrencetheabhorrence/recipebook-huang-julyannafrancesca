@@ -1,8 +1,9 @@
 from django.db import models
 from django.urls import reverse
 
+from user.models import Profile
 
-# Create your models here.
+
 class Ingredient(models.Model):
     name = models.CharField(max_length=250, unique=True)
 
@@ -12,6 +13,9 @@ class Ingredient(models.Model):
 
 class Recipe(models.Model):
     name = models.CharField(max_length=250, unique=True)
+    author = models.ForeignKey(Profile, null=True, on_delete=models.SET_NULL)
+    createdon = models.DateField(auto_now_add=True)
+    updatedon = models.DateField(auto_now=True)
 
     def __str__(self):
         return self.name
