@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import Ingredient, Recipe, RecipeIngredient
+from .models import Ingredient, Recipe, RecipeIngredient, RecipeImage
 
 
 class RecipeIngredientAdmin(admin.ModelAdmin):
@@ -12,3 +12,4 @@ class RecipeIngredientAdmin(admin.ModelAdmin):
 admin.site.register(Recipe)
 admin.site.register(Ingredient)
 admin.site.register(RecipeIngredient, RecipeIngredientAdmin)
+admin.site.register(RecipeImage)
