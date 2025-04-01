@@ -27,6 +27,8 @@ def recipe_add(request):
     if request.method == "POST":
         recipe_form = RecipeForm(request.POST)
         if recipe_form.is_valid():
-            recipe_form.save()
+            recipe = recipe_form.save()
+            if request.post.get("add_ingredient"):
+                return reverse(ingredient_add, recipe.id)
 
     return render(request, "ledger/recipe_add.html", {"recipe_form": RecipeForm()})
