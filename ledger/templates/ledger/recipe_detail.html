@@ -16,5 +16,7 @@
 		<li>{{ ingredient.ingredient }}, <em>{{ ingredient.quantity }}</em></li>
 		{% endfor %}
 	</ul>
+	<a href="{% url 'recipeingredient_add' recipe.ingredient %}">Add Ingredient to Recipe</a>
+	<a href="{% url 'recipeimage_add' recipe.id %}">Add Image to Recipe</a>
 </section>
 {% endblock %}
