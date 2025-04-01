@@ -2,7 +2,7 @@
 
 {% block title %} Add Ingredient {% endblock %}
 {% block content %}
-<form action="{% url ingredient_add' %}" method="post">
+<form action="{% url 'ingredient_add' %}" method="post">
 	{% csrf_token %}
 	{{ ingredient_form.as_p }}
 	<button type="submit">Save Ingredient</button>

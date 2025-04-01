@@ -1,5 +1,7 @@
 from django.contrib.auth.decorators import login_required
-from django.shortcuts import render
+from django.shortcuts import render, redirect
+from django.http import HttpResponseRedirect
+from django.urls import reverse
 
 from .models import Recipe, RecipeIngredient, RecipeImage
 from .forms import RecipeForm, RecipeIngredientForm, IngredientForm
@@ -27,16 +29,16 @@ def recipeingredient_add(request, recipe_id):
     if request.method == "POST":
         recipeingredient_form = RecipeIngredientForm(request.POST)
         if recipeingredient_form.is_valid():
-            recipeingredient = recipeingredient_form.save(commit=False)
             recipe = Recipe.objects.get(pk=recipe_id)
+            recipeingredient = recipeingredient_form.save(commit=False)
             recipeingredient.recipe = recipe
             recipeingredient.save()
-        return reverse(index)
+        return HttpResponseRedirect(reverse("recipe_list"))
 
     return render(
         request,
         "ledger/recipeingredient_add.html",
-        {"recipeingredient_form": RecipeIngredientForm()},
+        {"recipeingredient_form": RecipeIngredientForm(), "recipe_id": recipe_id},
     )
 
 
@@ -46,7 +48,7 @@ def ingredient_add(request):
         ingredient_form = IngredientForm(request.POST)
         if ingredient_form.is_valid():
             ingredient_form.save()
-        return reverse(index)
+        return HttpResponseRedirect(reverse("recipe_list"))
 
     return render(
         request,
