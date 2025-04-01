@@ -33,7 +33,7 @@ def recipeingredient_add(request, recipe_id):
             recipeingredient = recipeingredient_form.save(commit=False)
             recipeingredient.recipe = recipe
             recipeingredient.save()
-        return HttpResponseRedirect(reverse("recipe_list"))
+        return HttpResponseRedirect(reverse("recipe_detail", args=[recipe_id]))
 
     return render(
         request,
