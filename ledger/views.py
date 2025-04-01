@@ -43,6 +43,18 @@ def recipeingredient_add(request, recipe_id):
 
 
 @login_required
+def recipeimage_add(request, recipe_id):
+    if request.method == "POST":
+        recipeimage_form = RecipeImageForm(request.POST)
+        if recipeimage_form.is_valid():
+            image = recipeimage_form.save(commit=False)
+            image.recipe = Recipe.objects.get(pk=recipe_id)
+            image.save()
+            return HttpResponseRedirect(reverse("recipe_detail", args=[recipe_id]))
+    return render(request, "ledger/recipeimage_add.html", {"recipe_id": "recipe_id"})
+
+
+@login_required
 def ingredient_add(request):
     if request.method == "POST":
         ingredient_form = IngredientForm(request.POST)
