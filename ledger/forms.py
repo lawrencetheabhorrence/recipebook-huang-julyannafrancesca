@@ -20,7 +20,7 @@ class IngredientForm(ModelForm):
         fields = ["name"]
 
 
-class RecipeImage(ModelForm):
+class RecipeImageForm(ModelForm):
     class Meta:
         model = RecipeImage
         fields = ["image", "description"]
