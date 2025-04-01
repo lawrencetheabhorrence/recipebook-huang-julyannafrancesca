@@ -2,7 +2,7 @@
 
 {% block title %} Add Image to Recipe {% endblock %}
 {% block content %}
-<form action="{% url 'recipeimage_add' recipe_id %}" method="post">
+<form action="{% url 'recipeimage_add' recipe_id %}" method="post" enctype="multipart/form-data">
 	{% csrf_token %}
 	{{ recipeimage_form.as_p }}
 	<button type="submit">Save Image</button>

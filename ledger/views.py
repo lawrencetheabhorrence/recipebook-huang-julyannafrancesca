@@ -4,7 +4,7 @@ from django.http import HttpResponseRedirect
 from django.urls import reverse
 
 from .models import Recipe, RecipeIngredient, RecipeImage
-from .forms import RecipeForm, RecipeIngredientForm, IngredientForm
+from .forms import RecipeForm, RecipeIngredientForm, IngredientForm, RecipeImageForm
 
 
 # Create your views here.
@@ -45,13 +45,20 @@ def recipeingredient_add(request, recipe_id):
 @login_required
 def recipeimage_add(request, recipe_id):
     if request.method == "POST":
-        recipeimage_form = RecipeImageForm(request.POST)
+        recipeimage = RecipeImage(recipe=Recipe.objects.get(pk=recipe_id))
+        print(request.FILES)
+        recipeimage_form = RecipeImageForm(
+            request.POST, request.FILES, instance=recipeimage
+        )
         if recipeimage_form.is_valid():
-            image = recipeimage_form.save(commit=False)
-            image.recipe = Recipe.objects.get(pk=recipe_id)
-            image.save()
-            return HttpResponseRedirect(reverse("recipe_detail", args=[recipe_id]))
-    return render(request, "ledger/recipeimage_add.html", {"recipe_id": "recipe_id"})
+            recipeimage_form.save()
+
+        return HttpResponseRedirect(reverse("recipe_detail", args=[recipe_id]))
+    return render(
+        request,
+        "ledger/recipeimage_add.html",
+        {"recipeimage_form": RecipeImageForm(), "recipe_id": recipe_id},
+    )
 
 
 @login_required
