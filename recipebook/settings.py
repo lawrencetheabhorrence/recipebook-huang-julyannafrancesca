@@ -14,8 +14,12 @@ from pathlib import Path
 import environ
 import os
 
+env = environ.Env()
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
+
+environ.Env.read_env(BASE_DIR / ".env")
 
 MEDIA_ROOT = BASE_DIR / "media"
 MEDIA_URL = "/media/"
