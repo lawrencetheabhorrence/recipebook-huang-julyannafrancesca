@@ -4,7 +4,7 @@ from ledger import views
 
 urlpatterns = [
     path("recipes/list", views.index, name="recipe_list"),
-    path("recipe/<int:recipe_id>", views.recipe_detail, name="detail"),
+    path("recipe/<int:recipe_id>", views.recipe_detail, name="recipe_detail"),
     path(
         "recipe/<int:recipe_id>/add_ingredient",
         views.recipeingredient_add,
