@@ -2,7 +2,7 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
 
 from .models import Recipe, RecipeIngredient, RecipeImage
-from .forms import RecipeForm
+from .forms import RecipeForm, RecipeIngredientForm, IngredientForm
 
 
 # Create your views here.
@@ -23,12 +23,46 @@ def recipe_detail(request, recipe_id):
 
 
 @login_required
+def recipeingredient_add(request, recipe_id):
+    if request.method == "POST":
+        recipeingredient_form = RecipeIngredientForm(request.POST)
+        if recipeingredient_form.is_valid():
+            recipeingredient = recipeingredient_form.save(commit=False)
+            recipe = Recipe.objects.get(pk=recipe_id)
+            recipeingredient.recipe = recipe
+            recipeingredient.save()
+        return reverse(index)
+
+    return render(
+        request,
+        "ledger/recipeingredient_add.html",
+        {"recipeingredient_form": RecipeIngredientForm()},
+    )
+
+
+@login_required
+def ingredient_add(request):
+    if request.method == "POST":
+        ingredient_form = IngredientForm(request.POST)
+        if ingredient_form.is_valid():
+            ingredient_form.save()
+        return reverse(index)
+
+    return render(
+        request,
+        "ledger/ingredient_add.html",
+        {"ingredient_form": IngredientForm()},
+    )
+
+
+@login_required
 def recipe_add(request):
     if request.method == "POST":
         recipe_form = RecipeForm(request.POST)
         if recipe_form.is_valid():
             recipe = recipe_form.save()
-            if request.post.get("add_ingredient"):
+            if request.POST.get("add_ingredient"):
                 return reverse(recipeingredient_add, recipe.id)
+            return reverse(index)
 
     return render(request, "ledger/recipe_add.html", {"recipe_form": RecipeForm()})
