@@ -1,17 +1,22 @@
 {% extends "base.html" %}
 
-{% block title %}{{ name }}{% endblock %}
+{% block title %}{{ recipe.name }}{% endblock %}
 {% block content %}
 <section>
 	<h3>Ingredients</h3>
+	{% for image in recipe.images.all %}
+		<img src="{{ image.image.url }}" alt="{{ image.description }}" />
+	{% endfor %}
 	<dl>
 		<dt>Author</dt>
-		<dd>{{ author }}</dd>
+		<dd>{{ recipe.author }}</dd>
 	</dl>
 	<ul>
-		{% for ingredient in ingredients %}
+		{% for ingredient in recipe.ingredients.all %}
 		<li>{{ ingredient.ingredient }}, <em>{{ ingredient.quantity }}</em></li>
 		{% endfor %}
 	</ul>
+	<a href="{% url 'recipeingredient_add' recipe.id %}">Add Ingredient to Recipe</a>
+	<a href="{% url 'recipeimage_add' recipe.id %}">Add Image to Recipe</a>
 </section>
 {% endblock %}
